@@ -46,7 +46,7 @@ angular.module('ham').filter 'letter_score', ->
 class Score extends Service
     constructor: ($http) ->
         @byLatLng = (coords) ->
-            return $http.jsonp("http://healtharound.me/api/score/#{coords.lat},#{coords.lng}/?format=jsonp&callback=JSON_CALLBACK").then (resp) ->
+            return $http.jsonp("http://api.healtharound.me/api/score/#{coords.lat},#{coords.lng}/?format=jsonp&callback=JSON_CALLBACK").then (resp) ->
                 return resp.data
 
 
