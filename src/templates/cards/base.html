@@ -1,1 +1,21 @@
-all the cards!
+<div class="card" ng-repeat="card in cards">
+    <div class="card-header">
+        <h3>
+            {{card.label}}
+        </h3>
+    </div>
+    <div class="card-body">
+        <ul class="sentiment-bars">
+            <li ng-repeat="element in card.elements">
+                <div class="score-container {{element.score|letter_score|lowercase}}-score">
+                    <div class="score">{{element.score|letter_score}}</div>
+                    <div class="icon"></div>
+                    <div class="score-bar">
+                        <div class="bar" ng-style="{height: element.score * 100 + '%'}">
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

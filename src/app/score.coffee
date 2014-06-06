@@ -45,7 +45,9 @@ class ScoreRoutes extends Config
             )
 
 class Cards extends Controller
-    constructor: ($scope, $state, $stateParams) ->
+    constructor: ($scope, $state, score_data, $stateParams) ->
+        # Create card tree
+        $scope.cards = score_data.elements
 
 
 class Score extends Service
