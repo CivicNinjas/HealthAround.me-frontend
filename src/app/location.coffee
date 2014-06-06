@@ -7,7 +7,7 @@ class LocationRoutes extends Config
             .state('location_lookup',
                 url: '/location'
                 views:
-                    '':
+                    'content':
                         templateUrl: 'location.html'
                         controller: 'locationController'
                     'header':
@@ -17,10 +17,23 @@ class LocationRoutes extends Config
 # location lookup and state manager
 class Location extends Controller
     constructor: ($scope, $state, geolocation) ->
-        $scope.button_text = 'looking you up…'
         $scope.searching = false
+        $scope.error_message = ''
         # geo object
         $scope.location = false
+
+        # leaflef base objects
+        $scope.markers =
+            user_marker:
+                focus: true
+                title: "Marker"
+                draggable: false
+                label:
+                    message: "This is you!"
+                    options:
+                        noHide: true
+        $scope.center =
+            zoom: 13
 
         $scope.existing_locations = {
             # North Tulsa - N Hartford and E Virgin
@@ -35,13 +48,18 @@ class Location extends Controller
         $scope.get_location = ->
             return if $scope.searching is true
             $scope.searching = true
+            # reset previously found location
+            $scope.location = false
             $scope.location_promise = geolocation.getLocation()
             $scope.location_promise.then (geo) ->
                 $scope.location = {lat: geo.coords.latitude, lng: geo.coords.longitude}
+                angular.extend($scope.markers.user_marker, $scope.location)
+                angular.extend($scope.center, $scope.location)
                 $scope.searching = false
-                $scope.button_text = 'Use current location'
+                $scope.error_message = ''
             , (error) ->
-                $scope.button_text = error
+                $scope.error_message = error
+                $scope.searching = false
 
         $scope.get_location()
 

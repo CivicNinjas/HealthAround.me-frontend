@@ -1,7 +1,7 @@
 # Frontend code for [healtharound.me](http://healtharound.me)
 
 ### What it does
-* [Stylus](http://learnboost.github.io/stylus) files to CSS
+* [Stylus](http://learnboost.github.io/stylus) files and [Nib](http://visionmedia.github.io/nib/) to CSS
 * [CoffeeScript](http://coffeescript.org/) files to Javascript
 * Serves your static files to localhost:9001
 * Reloads your browser with LiveReload when files change

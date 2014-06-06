@@ -1,4 +1,19 @@
-<button ng-click="retreive_location(location)" ng-disabled="searching" class="btn fill large" ng-class="{'btn-warning': (!location && !searching), 'btn-primary': location}">{{button_text}}</button>
-<p>Your must be in our <a href="#service">service area</a> to get useful data.</p>
+<div class="top-section">
+    <button ng-click="retreive_location(location)" ng-disabled="searching" class="btn fill large" ng-class="{'btn-warning': (!location), 'btn-primary': location}">
+        <span ng-if="location">Use current location</span>
+        <span ng-if="!location">looking you up&hellip;</span>
+    </button>
+    <div class="error" ng-if="error_message">
+        {{error_message}}
+        <a class="btn btn-warning fill" ng-click="get_location()">try again</a>
+    </div>
+</div>
+
+<div id="current-location-map" ng-if="location">
+    <h3>Here's where we think you are&hellip;</h3>
+    <leaflet center="center" markers="markers" height="120px"></leaflet>
+    <p>Your must be in our <a ui-sref="about">service area</a> to get useful data.</p>
+    <a class="btn btn-warning fill" ng-click="get_location()">try finding me again</a>
+</div>
 
 <a ng-click="retreive_location(location)" ng-repeat="(name, location) in existing_locations" class="btn btn-primary fill">{{name}}</a>

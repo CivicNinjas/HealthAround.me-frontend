@@ -17,7 +17,7 @@ class TakeActionRoutes extends Config
             .state('feedback',
                 url: '/feedback'
                 views:
-                    '':
+                    'content':
                         controller: 'feedbackController'
                         templateUrl: 'feedback.html'
                     'header':
@@ -27,7 +27,7 @@ class TakeActionRoutes extends Config
             .state('feedback.score',
                 url: '/:score_slug'
                 views:
-                    '':
+                    'content':
                         controller: 'feedbackController'
                         templateUrl: 'feedback.html'
                     'header':

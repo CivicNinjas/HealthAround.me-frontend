@@ -1,0 +1,18 @@
+<div marked="metric.score_text.markdown"></div>
+
+<a ui-sref="home">Back to exploring</a>
+
+<leaflet center="center" geojson="detail" height="280px"></leaflet>
+
+<a ui-sref="home">View on something</a>
+
+<h3>Why is this important?</h3>
+<div marked="metric.why_text.markdown"></div>
+
+<h3>References</h3>
+<ul class="references">
+    <li ng-repeat="ref in metric.references" marked="ref.markdown"></li>
+</ul>
+
+<h3>Read More</h3>
+<div marked="metric.more_data.markdown"></div>

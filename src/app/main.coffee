@@ -1,18 +1,23 @@
 class Ham extends App
     # requirements for the app
     @constructor = [
-        # 'ngAnimate'
         'ui.router'
         'geolocation'
+        'ngAnimate'
+        'fx.animations'
+        'hc.marked'
+        'leaflet-directive'
     ]
 
+class ApiConfig extends Constant
+    @constructor =
+        endpoint: 'http://api.healtharound.me/api'
 
 class RunState extends Run
     constructor: ($log, $rootScope, $state, $stateParams) ->
+        $rootScope.debug = false
         $rootScope.$state = $state
         $rootScope.$stateParams = $stateParams
-        # navigate to the home state on init
-        $state.transitionTo('home')
 
         $rootScope.$on '$stateChangeStart', (event, toState, toParams, fromState, fromParams) ->
             $log.log('$stateChangeStart', arguments)
@@ -28,8 +33,12 @@ class RunState extends Run
         $rootScope.toggle_menu = ->
             $rootScope.enable_menu = !$rootScope.enable_menu
 
+        # $state.transitionTo('score.detail', {
+        #     boundary_slug: 'census-tract-25'
+        #     metric_slug: 'percent-poverty'
+        # })
 
-class Routes extends Config
+class BaseRoutes extends Config
     constructor: ($stateProvider, $urlRouterProvider, $locationProvider) ->
         # $locationProvider.html5Mode(true)
 
@@ -45,7 +54,7 @@ class Routes extends Config
             .state('home',
                 url: '/'
                 views:
-                    '':
+                    'content':
                         templateUrl: 'home.html'
                     'header':
                         template: 'Welcome to HealthAround.me'
@@ -53,8 +62,14 @@ class Routes extends Config
             .state('about',
                 url: '/about'
                 views:
-                    '':
+                    'content':
                         templateUrl: 'about.html'
                     'header':
                         template: 'About HealthAround.me'
             )
+
+class HAMConfig extends Config
+    constructor: (markedProvider) ->
+         markedProvider.setOptions
+            gfm: true
+            tables: true
