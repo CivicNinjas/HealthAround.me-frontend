@@ -33,10 +33,6 @@ class RunState extends Run
         $rootScope.toggle_menu = ->
             $rootScope.enable_menu = !$rootScope.enable_menu
 
-        # $state.transitionTo('score.detail', {
-        #     boundary_slug: 'census-tract-25'
-        #     metric_slug: 'percent-poverty'
-        # })
 
 class BaseRoutes extends Config
     constructor: ($stateProvider, $urlRouterProvider, $locationProvider) ->
@@ -72,4 +68,5 @@ class HAMConfig extends Config
     constructor: (markedProvider) ->
          markedProvider.setOptions
             gfm: true
+            breaks: true
             tables: true

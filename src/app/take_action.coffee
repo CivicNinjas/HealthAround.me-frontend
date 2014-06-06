@@ -1,56 +1,62 @@
 # Views and things so user's can take action on the data
 
-# Handle feedback forms and such.
-class FeedbackAPI extends Service
-    constructor: ($http) ->
-        send_feedback: (data) ->
-            $http.post
-                data: data
+# TODO: generic mailto directive or handler for mailto click events
 
 class TakeActionRoutes extends Config
     constructor: ($stateProvider, $urlRouterProvider) ->
         $urlRouterProvider
-            .when('/f', '/feedback')
+            .when('/ta', '/take-action')
+            .when('/ta/:who', '/take-action/:who')
 
         $stateProvider
-            # Basic feedback form
-            .state('feedback',
-                url: '/feedback'
-                views:
-                    'content':
-                        controller: 'feedbackController'
-                        templateUrl: 'feedback.html'
-                    'header':
-                        template: 'Give us Feedback'
-            )
-            # Handle sending feedback related to a specific score
-            .state('feedback.score',
-                url: '/:score_slug'
-                views:
-                    'content':
-                        controller: 'feedbackController'
-                        templateUrl: 'feedback.html'
-                    'header':
-                        template: 'Improve your Community'
-            )
             .state('take_action',
                 url: '/take-action'
-                templateUrl: 'take_action/landing.html'
+                views:
+                    'content':
+                        templateUrl: 'take_action/landing.html'
+                        controller: 'takeActionController'
+                    'header':
+                        template: 'Take Action'
             )
             .state('take_action.tell_the',
-                url: '/:who'
+                url: '/tell/:who'
+                views:
+                    'content@':
+                        templateUrl: (stateParams) ->
+                            return "take_action/contact_#{stateParams.who}.html"
+                        controller: 'takeActionController'
+                    'header@':
+                        templateProvider: ($stateParams, $filter) ->
+                            who = $filter('ucfirst')($stateParams.who)
+                            return "Tell the #{who}"
+                    'action_area@take_action.tell_the':
+                        templateUrl: 'take_action/action_button.html'
+                        controller: ($scope, $stateParams) ->
+                            # $scope.action_text = ''
+                            $scope.who = $stateParams.who
             )
-            # .state('feedback.thanks',
-            #     url: '/thanks'
-            #     views:
-            #         '':
-            #             template: 'thanks for the feedback?'
-            # )
+            .state('take_action.share',
+                url: '/share'
+                views:
+                    'content@':
+                        templateUrl: 'take_action/share.html'
+                        controller: ($scope, $window) ->
+                            $scope.data_url = 'fake_url'
+                            $scope.title = 'fake_title& things'
+                            $scope.send_email = ->
+                                if @Email.$valid
+                                    $window.location = """mailto:#{$scope.to_email}?subject=
+                                    Someone wants you to know about this data&body=check it out! #{$scope.data_url}"""
+                    'header@':
+                        template: 'Share This Data'
+                    'action_area@take_action.share':
+                        templateUrl: 'take_action/action_button.html'
+                        controller: ($scope, $stateParams) ->
+                            $scope.action_text = 'Want to Tell us Something?'
+                            $scope.who = $stateParams.who
+            )
 
 # class FeedbackForm extends Controller
 
-class Feedback extends Controller
-    constructor: ($scope, $state, $stateParams, feedbackAPIService) ->
-        $scope.submit_feedback = =>
-            if @FeedbackForm.$valid
-                debugger
+class TakeAction extends Controller
+    constructor: ($scope, $state, $stateParams) ->
