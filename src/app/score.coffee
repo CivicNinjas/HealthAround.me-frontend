@@ -44,8 +44,6 @@ class ScoreRoutes extends Config
                     ]
             )
 
-# http://localhost:9001/#/detail/census-tract-25/percent-poverty/
-
 class Cards extends Controller
     constructor: ($scope, $state, $stateParams) ->
 
