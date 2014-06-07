@@ -3,13 +3,13 @@
         <span ng-if="location">Use current location</span>
         <span ng-if="!location">looking you up&hellip;</span>
     </button>
-    <div class="error" ng-if="error_message">
+    <div class="error fx-fade-down fx-speed-300" ng-if="error_message">
         {{error_message}}
         <a class="btn btn-warning fill" ng-click="get_location()">try again</a>
     </div>
 </div>
 
-<div id="current-location-map" ng-if="location">
+<div id="current-location-map" ng-if="location" class="fx-fade-down fx-speed-300">
     <h3>Here's where we think you are&hellip;</h3>
     <leaflet center="center" markers="markers" height="120px" id="location-map"></leaflet>
     <p>Your must be in our <a ui-sref="about">service area</a> to get useful data.</p>
