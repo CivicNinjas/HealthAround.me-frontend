@@ -2,9 +2,13 @@
 
 <a ng-click="go_back()" class="btn fill">Back to exploring</a>
 
-<leaflet center="center" geojson="detail" height="280px"></leaflet>
+<leaflet center="center" geojson="geojson" height="280px" id="boundary-map"></leaflet>
 
-<a ui-sref="home">View on something</a>
+<div class="read-more-section" ng-if="metric.more_data">
+    <div ng-repeat="data in metric.more_data">
+        <a href="{{data.link}}" class="btn fill">{{data.text}}</a>
+    </div>
+</div>
 
 <h3>Why is this important?</h3>
 <div marked="metric.why_text.markdown"></div>
@@ -13,10 +17,5 @@
 <ul class="references">
     <li ng-repeat="ref in metric.references" marked="ref.markdown"></li>
 </ul>
-
-<div class="read-more-section" ng-if="metric.more_data.markdown">
-    <h3>Read More</h3>
-    <div marked="metric.more_data.markdown"></div>
-</div>
 
 <a class="btn btn-success large fill" ui-sref="take_action">Take Action</a>

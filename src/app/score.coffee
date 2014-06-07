@@ -61,14 +61,26 @@ class Score extends Service
 
 
 class ScoreDetail extends Controller
-    constructor: ($scope, detail, $state, $stateParams) ->
+    constructor: ($scope, detail, $state, $stateParams, leafletData) ->
         $scope.metric = detail.properties.metric
-        $scope.detail = detail
+        $scope.geojson =
+            data: detail
         centroid = detail.properties.centroid.coordinates
         $scope.center =
             lat: centroid[1]
             lng: centroid[0]
             zoom: 13
+
+        leafletData.getMap('boundary-map').then (map) ->
+            map.dragging.disable()
+            map.touchZoom.disable()
+            map.doubleClickZoom.disable()
+            map.scrollWheelZoom.disable()
+            map.boxZoom.disable()
+            map.keyboard.disable()
+        # # try at zoom map to bounds
+        #     bounds = L.latLngBounds(detail.geometry.coordinates)
+        #     map.fitBounds(bounds)
 
 
 class ScoreState extends Controller

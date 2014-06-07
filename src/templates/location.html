@@ -11,7 +11,7 @@
 
 <div id="current-location-map" ng-if="location">
     <h3>Here's where we think you are&hellip;</h3>
-    <leaflet center="center" markers="markers" height="120px"></leaflet>
+    <leaflet center="center" markers="markers" height="120px" id="location-map"></leaflet>
     <p>Your must be in our <a ui-sref="about">service area</a> to get useful data.</p>
     <a class="btn btn-warning fill" ng-click="get_location()">try finding me again</a>
 </div>
