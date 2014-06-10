@@ -7,14 +7,17 @@ class Ham extends App
         'fx.animations'
         'hc.marked'
         'leaflet-directive'
+        'angular-carousel'
     ]
+
 
 class ApiConfig extends Constant
     @constructor =
         endpoint: 'http://api.healtharound.me/api'
 
+
 class RunState extends Run
-    constructor: ($log, $rootScope, $state, $stateParams) ->
+    constructor: ($log, $rootScope, $state, $stateParams, $window) ->
         $rootScope.debug = false
         $rootScope.$state = $state
         $rootScope.$stateParams = $stateParams
@@ -26,17 +29,16 @@ class RunState extends Run
         $rootScope.$on '$stateChangeSuccess', (event, toState, toParams, fromState, fromParams) ->
             $log.log('$stateChangeSuccess', arguments)
         $rootScope.$on '$stateChangeError', (event, toState, toParams, fromState, fromParams, error) ->
-            $log.log('$stateChangeError', arguments)
+            $log.error('$stateChangeError', event, error)
 
         # main menu
         $rootScope.enable_menu = false
         $rootScope.toggle_menu = ->
             $rootScope.enable_menu = !$rootScope.enable_menu
 
-        # $state.transitionTo('score.detail', {
-        #     boundary_slug: 'census-tract-25'
-        #     metric_slug: 'percent-poverty'
-        # })
+        # use browser history and ui-states to move back in pages
+        $rootScope.go_back = ->
+            $window.history.back()
 
 class BaseRoutes extends Config
     constructor: ($stateProvider, $urlRouterProvider, $locationProvider) ->
@@ -72,4 +74,5 @@ class HAMConfig extends Config
     constructor: (markedProvider) ->
          markedProvider.setOptions
             gfm: true
+            breaks: true
             tables: true

@@ -1,0 +1,134 @@
+$bar_height = 250px
+$bar_width = 55px
+.card-group
+    overflow: hidden
+    position: relative
+    margin-bottom: 10px
+.card
+    user-select: none
+    margin: 0
+    // border: 1px solid $main_border
+    box-sizing: border-box
+    background: #4F5E6A
+    // background: linear-gradient(top right, #746E70, #53616D)
+    .card-header
+        border-bottom: 1px solid $main_border
+        padding: 0 $card_padding
+        overflow: hidden
+        h3
+            font-weight: 300
+            letter-spacing: 1px
+            color: white
+            margin: 10px 0
+    .card-body
+        min-height: $bar_height
+        transform: translate3d(0,0,0)
+        position: relative
+        white-space: nowrap
+        overflow: visible
+        padding: 0
+        margin: 0
+        .rn-carousel-container
+            position: relative
+            left: 50%
+            margin-left: -($bar_width/2)
+    .sentiment-bars
+        min-height: $bar_height
+        margin: 0
+        padding: 0
+        line-height: 0
+        li
+            width: $bar_width
+            height: $bar_height
+            list-style: none
+            border-right: 1px solid $main_border
+            position: relative
+            display: inline-block
+            // &:last-child
+            //     border: none
+
+            .score-container
+            .icon
+            .score
+            .score-bar
+                transition: all 0.3s ease
+            .score-container
+                text-align: center
+                display: block
+                position: absolute
+                top: 0
+                right: 0
+                bottom: 0
+                left: 0
+                background: transparent
+                cursor: pointer
+                box-shadow: 0 0 0 rgba(0,0,0,0)
+                z-index: 100
+
+            // .icon
+            //     display: block
+            //     width: 30px
+            //     height: 30px
+            //     position: absolute
+            //     background: rgba(gray, 0.6)
+            //     margin-left: -(@width/2)
+            //     left: 50%
+            //     top: 20px
+            //     border-radius: 100px
+
+            .score
+                font-size: 1.6em
+                line-height: 40px
+                opacity: 0
+                font-weight: 600
+
+            .score-bar
+                position: absolute
+                top: 35px
+                right: 0
+                bottom: 0
+                left: 0
+                z-index: 80
+                .bar
+                    position: absolute
+                    right: 0
+                    bottom: 0
+                    left: 0
+                    z-index: 90
+                    box-shadow: inset 0 -3px 7px rgba(0,0,0,0.3)
+            .score-container
+                &.a-score
+                    .score
+                        color: $good_color
+                    .bar
+                        background: $good_color
+                &.b-score
+                &.c-score
+                    .score
+                        color: $neutral_color
+                    .bar
+                        background: $neutral_color
+                &.f-score
+                &.d-score
+                    .score
+                        color: $bad_color
+                    .bar
+                        background: $bad_color
+            &.active
+                .score-container
+                    z-index: 110
+                    // how much we pull into the header
+                    top: -35px
+                    background: darken(white, 10%)
+                    background: white
+                    box-shadow: 17px -1px 58px rgba(0,0,0,0.3)
+                // .score-bar
+                //     // how much we strink the score bar when the container expands
+                //     // top: 85px
+                // .icon
+                //     width: 50px
+                //     height: 50px
+                //     margin-left: -(@width/2)
+                //     top: 10px
+                .score
+                    opacity: 1

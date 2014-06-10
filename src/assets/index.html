@@ -21,10 +21,10 @@
     </nav>
     <div id="page-wrapper">
         <header>
-            <h1 ui-view="header"></h1>
+            <h1 ui-view="header" ng-click="go_back()"></h1>
         </header>
-        <!-- <div ui-view class="content fx-fade-left fx-speed-8000"></div> -->
-        <div ui-view="content" class="content fx-fade-left fx-speed-500"></div>
+        <!-- <div ui-view class="content fx-fade-left fx-speed-500"></div> -->
+        <div ui-view="content" class="content"></div>
     </div>
     <pre ng-if="debug">
         $state = {{$state.current.name}}

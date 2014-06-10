@@ -4,7 +4,7 @@
   "description": "Frontend code for healtharound.me",
   "main": "gulpfile.js",
   "scripts": {
-    "prepublish": "bower install && gulp build",
+    "postinstall": "bower install && gulp build",
     "start": "gulp",
     "build": "gulp build"
   },

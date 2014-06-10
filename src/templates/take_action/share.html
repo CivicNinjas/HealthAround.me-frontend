@@ -1,0 +1,15 @@
+<h3>By Url</h3>
+<input type="text" ng-model="data_url" disabled>
+
+<h3>By Email</h3>
+<form name="Email">
+    <input type="email" ng-model="to_email" required>
+    <button ng-click="send_email()">Compose</button>
+</form>
+
+<div class="social-share">
+    <a href="http://mobile.twitter.com/home?status={{data_url}}" target="_blank" class="twitter">Twitter</a>
+    <a href="http://m.facebook.com/sharer.php?u={{data_url}}t={{title}}" target="_blank" class="facebook">Facebook</a>
+</div>
+
+<div ui-view="action_area"></div>

@@ -16,7 +16,7 @@ class LocationRoutes extends Config
 
 # location lookup and state manager
 class Location extends Controller
-    constructor: ($scope, $state, geolocation) ->
+    constructor: ($scope, $state, geolocation, leafletData) ->
         $scope.searching = false
         $scope.error_message = ''
         # geo object
@@ -66,3 +66,11 @@ class Location extends Controller
         # accepts lat/lng obj
         $scope.retreive_location = (location) ->
             $state.go('score', location)
+
+        leafletData.getMap('location-map').then (map) ->
+            map.dragging.disable()
+            map.touchZoom.disable()
+            map.doubleClickZoom.disable()
+            map.scrollWheelZoom.disable()
+            map.boxZoom.disable()
+            map.keyboard.disable()

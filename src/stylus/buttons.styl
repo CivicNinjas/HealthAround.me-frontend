@@ -19,10 +19,12 @@ button_styles(class, base_color)
     padding: 4px 8px
     text-transform: upper-case
     font-size: $base_font_size
+    font-weight: normal
     text-decoration: none
     box-sizing: border-box
     text-align: center
     transition: background 0.2s linear
+    background: lighten(gray, 35%)
     &:hover
         background: gray
         color: white
@@ -37,4 +39,3 @@ button_styles(class, base_color)
     &.large
         padding: 8px 14px
         font-size: $base_font_size + 6px
-
