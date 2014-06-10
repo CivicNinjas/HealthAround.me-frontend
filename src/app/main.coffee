@@ -7,6 +7,7 @@ class Ham extends App
         'fx.animations'
         'hc.marked'
         'leaflet-directive'
+        'angular-carousel'
     ]
 
 
@@ -20,6 +21,15 @@ class RunState extends Run
         $rootScope.debug = false
         $rootScope.$state = $state
         $rootScope.$stateParams = $stateParams
+
+        $rootScope.$on '$stateChangeStart', (event, toState, toParams, fromState, fromParams) ->
+            $log.log('$stateChangeStart', arguments)
+        $rootScope.$on '$stateNotFound', (event, unfoundState, fromState, fromParams) ->
+            $log.log('$stateNotFound', arguments)
+        $rootScope.$on '$stateChangeSuccess', (event, toState, toParams, fromState, fromParams) ->
+            $log.log('$stateChangeSuccess', arguments)
+        $rootScope.$on '$stateChangeError', (event, toState, toParams, fromState, fromParams, error) ->
+            $log.error('$stateChangeError', event, error)
 
         # main menu
         $rootScope.enable_menu = false

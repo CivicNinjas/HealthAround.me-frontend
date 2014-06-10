@@ -1,40 +1,51 @@
-@import 'variables'
-// .card-group
+$bar_height = 250px
+$bar_width = 55px
+.card-group
+    overflow: hidden
+    position: relative
+    margin-bottom: 10px
 .card
-    margin: 0 0 10px
-    // border: 1px solid main_border
+    user-select: none
+    margin: 0
+    // border: 1px solid $main_border
     box-sizing: border-box
     background: #4F5E6A
     // background: linear-gradient(top right, #746E70, #53616D)
-    overflow: hidden
-    max-width: 450px
     .card-header
-        border-bottom: 1px solid main_border
-        padding: 0 card_padding
+        border-bottom: 1px solid $main_border
+        padding: 0 $card_padding
         overflow: hidden
         h3
-            font-weight: 100
+            font-weight: 300
             letter-spacing: 1px
             color: white
             margin: 10px 0
     .card-body
-        display: table
-        width: 100%
-        min-height: 250px
-        text-align: center
+        min-height: $bar_height
+        transform: translate3d(0,0,0)
+        position: relative
+        white-space: nowrap
+        overflow: visible
+        padding: 0
+        margin: 0
+        .rn-carousel-container
+            position: relative
+            left: 50%
+            margin-left: -($bar_width/2)
     .sentiment-bars
-        display: table-row
-        min-height: 250px
+        min-height: $bar_height
         margin: 0
         padding: 0
-        width: 100%
+        line-height: 0
         li
+            width: $bar_width
+            height: $bar_height
             list-style: none
-            display: table-cell
-            border-right: 1px solid main_border
+            border-right: 1px solid $main_border
             position: relative
-            &:last-child
-                border: none
+            display: inline-block
+            // &:last-child
+            //     border: none
 
             .score-container
             .icon
@@ -42,6 +53,7 @@
             .score-bar
                 transition: all 0.3s ease
             .score-container
+                text-align: center
                 display: block
                 position: absolute
                 top: 0
@@ -53,26 +65,26 @@
                 box-shadow: 0 0 0 rgba(0,0,0,0)
                 z-index: 100
 
-            .icon
-                display: block
-                width: 30px
-                height: 30px
-                position: absolute
-                background: rgba(gray, 0.6)
-                margin-left: -(@width/2)
-                left: 50%
-                top: 20px
-                border-radius: 100px
+            // .icon
+            //     display: block
+            //     width: 30px
+            //     height: 30px
+            //     position: absolute
+            //     background: rgba(gray, 0.6)
+            //     margin-left: -(@width/2)
+            //     left: 50%
+            //     top: 20px
+            //     border-radius: 100px
 
             .score
                 font-size: 1.6em
-                top: 60px
-                position: relative
+                line-height: 40px
                 opacity: 0
+                font-weight: 600
 
             .score-bar
                 position: absolute
-                top: 60px
+                top: 35px
                 right: 0
                 bottom: 0
                 left: 0
@@ -103,7 +115,6 @@
                     .bar
                         background: $bad_color
             &.active
-            &:hover
                 .score-container
                     z-index: 110
                     // how much we pull into the header
@@ -111,13 +122,13 @@
                     background: darken(white, 10%)
                     background: white
                     box-shadow: 17px -1px 58px rgba(0,0,0,0.3)
-                .score-bar
-                    // how much we strink the score bar when the container expands
-                    top: 85px
-                .icon
-                    width: 50px
-                    height: 50px
-                    margin-left: -(@width/2)
-                    top: 10px
+                // .score-bar
+                //     // how much we strink the score bar when the container expands
+                //     // top: 85px
+                // .icon
+                //     width: 50px
+                //     height: 50px
+                //     margin-left: -(@width/2)
+                //     top: 10px
                 .score
                     opacity: 1

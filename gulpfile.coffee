@@ -63,6 +63,8 @@ gulp.task 'js_libs', ->
     'ng-Fx/dist/ng-Fx.js'
     'angularjs-geolocation/src/geolocation.js'
     'angular-ui-router/release/angular-ui-router.js'
+    'angular-touch/angular-touch.js'
+    'angular-carousel/dist/angular-carousel.js'
   ]
   src_list = lib_list.map (lib) ->
     return bower_root+lib
