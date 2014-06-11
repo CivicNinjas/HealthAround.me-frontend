@@ -1,6 +1,11 @@
 <p>Do you have an idea for improving this and other health issues in your community?</p>
 <p>Do you have feedback on this data, or another message you'd like to send to the HealthAround.me team?</p>
-<form name="FeedbackForm">
-    <textarea name="feedback_text" required="true"></textarea>
-    <button type="submit" on-click="submit_feedback()">Send it to HealthAround.me</button>
+<form name="FeedbackForm" class="feedback-form">
+    <label for="user-name">Your name</label>
+    <input type="text" ng-model="feedback.name" id="user-name">
+    <label for="user-email">Your email</label>
+    <input type="text" ng-model="feedback.email" id="user-email">
+    <label for="user-message">Feedback (required)</label>
+    <textarea ng-model="feedback.message" required="true" id="user-message"></textarea>
+    <button type="submit" ng-click="submit_feedback()" class="btn btn-primary fill large">Send it to HealthAround.me</button>
 </form>

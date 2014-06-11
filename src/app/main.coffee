@@ -42,6 +42,7 @@ class RunState extends Run
 
 class BaseRoutes extends Config
     constructor: ($stateProvider, $urlRouterProvider, $locationProvider) ->
+        # Comment this out if html5 url push state isn't working
         # $locationProvider.html5Mode(true)
 
         $urlRouterProvider
