@@ -20,6 +20,19 @@ $bar_width = 55px
             letter-spacing: 1px
             color: white
             margin: 10px 0
+        .info
+            display: block
+            width: 20px
+            height: @width
+            border-radius: 16px
+            background: rgba(white, 0.4)
+            color: black
+            float: right
+            text-align: center
+            font-size: small
+            font-weight: bold
+            line-height: @width
+            border: 1px solid black
     .card-body
         min-height: $bar_height
         transform: translate3d(0,0,0)
@@ -37,6 +50,7 @@ $bar_width = 55px
         margin: 0
         padding: 0
         line-height: 0
+        border-left: 1px solid $main_border
         li
             width: $bar_width
             height: $bar_height
@@ -118,7 +132,7 @@ $bar_width = 55px
                 .score-container
                     z-index: 110
                     // how much we pull into the header
-                    top: -35px
+                    top: -16px
                     background: darken(white, 10%)
                     background: white
                     box-shadow: 17px -1px 58px rgba(0,0,0,0.3)
