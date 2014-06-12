@@ -11,11 +11,13 @@
     <p>Loading your score&hellip;</p>
 </div>
 
-<input type="range" ng-model="score" min="0" max="1" step="0.01" style="width: 100%;">
-<input type="text" ng-model="score" disabled>
+<div ng-if="debug">
+    <input type="range" ng-model="score" min="0" max="1" step="0.01" style="width: 100%;">
+    <input type="text" ng-model="score" disabled>
+</div>
 
 <div ng-if="score">
     <h3>Explore the score</h3>
-    <a class="btn btn-primary" ng-click="go_to_interaction('cards')">Cards</a>
-    <a class="btn btn-primary" ng-click="go_to_interaction('bubble')">Bubble</a>
+    <a class="btn btn-primary large fill" ng-click="go_to_interaction('cards')">Cards</a>
+    <a class="btn btn-primary large fill" ng-click="go_to_interaction('bubble')">Bubble</a>
 </div>

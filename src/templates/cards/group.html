@@ -6,7 +6,7 @@
             </h3>
         </div>
         <!-- <div class="card-body" ng-repeat="card in elements" id="{{card.id}}"> -->
-        <div class="card-body" id="{{card.id}}">
+        <div class="card-body" id="{{top_element.slug}}">
             <ul class="sentiment-bars" rn-carousel rn-carousel-index="slide_index">
                 <li ng-repeat="element in flattened_scores" ng-dblclick="focus_on(element)" ng-class="{active: element.active}">
                     <!-- {{element.label}} -->
@@ -26,9 +26,9 @@
 
 <div class="card-group">
     <div class="card">
-        <div class="card-header">
+        <div class="card-header" ng-click="nav_to(active_element)">
             <h3>
-                {{active_element.label}}
+                {{active_element.label}} <span ng-if="!active_element.elements" class="info">i</span>
             </h3>
         </div>
     </div>

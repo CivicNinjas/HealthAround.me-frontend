@@ -10,12 +10,16 @@
     </div>
 </div>
 
-<h3>Why is this important?</h3>
-<div marked="metric.why_text.markdown"></div>
+<div ng-if="metric.why_text">
+    <h3>Why is this important?</h3>
+    <div marked="metric.why_text.markdown"></div>
+</div>
 
-<h3>References</h3>
-<ul class="references">
-    <li ng-repeat="ref in metric.references" marked="ref.markdown"></li>
-</ul>
+<div ng-if="metric.references">
+    <h3>References</h3>
+    <ul class="references">
+        <li ng-repeat="ref in metric.references" marked="ref.markdown"></li>
+    </ul>
+</div>
 
 <a class="btn btn-success large fill" ui-sref="take_action">Take Action</a>
