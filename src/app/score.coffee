@@ -152,7 +152,7 @@ class Cards extends Controller
 class Score extends Service
     constructor: ($http, API_CONFIG) ->
         @byLatLng = (coords) ->
-            return $http.jsonp("#{API_CONFIG.endpoint}/score/#{coords.lat},#{coords.lng}/?format=jsonp&callback=JSON_CALLBACK").then (resp) ->
+            return $http.jsonp("#{API_CONFIG.endpoint}/score/#{coords.lng},#{coords.lat}/?format=jsonp&callback=JSON_CALLBACK").then (resp) ->
                 return resp.data
         @detail = (params) ->
             return $http.jsonp("#{API_CONFIG.endpoint}/detail/#{params.boundary_slug}/#{params.metric_slug}/?format=jsonp&callback=JSON_CALLBACK").then (resp) ->
