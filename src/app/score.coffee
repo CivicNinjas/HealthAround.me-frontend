@@ -165,7 +165,7 @@ class Score extends Service
             key = coord_key(coords.lat)+coord_key(coords.lng)
             data = cache.get(key)
             return data if data
-            return $http.jsonp("#{API_CONFIG.endpoint}/score/#{coords.lat},#{coords.lng}/?format=jsonp&callback=JSON_CALLBACK", cache: true).then (resp) ->
+            return $http.jsonp("#{API_CONFIG.endpoint}/score/#{coords.lng},#{coords.lat}/?format=jsonp&callback=JSON_CALLBACK", cache: true).then (resp) ->
                 walker = (element) ->
                     return if not element.elements
                     for child_element in element.elements
@@ -175,7 +175,7 @@ class Score extends Service
                         walker(child_element)
                     return
                 walker(resp.data)
-                cache.put(key, resp.data);
+                cache.put(key, resp.data)
                 return resp.data
 
         @detail = (params) ->

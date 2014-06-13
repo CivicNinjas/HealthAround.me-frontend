@@ -35,6 +35,21 @@ class TakeActionRoutes extends Config
                             # $scope.action_text = ''
                             $scope.who = $stateParams.who
             )
+            .state('take_action.data_to_the_editor',
+                url: '/data_to_the_editor'
+                views:
+                    'content@':
+                        templateUrl: (stateParams) ->
+                            return "take_action/data_to_the_editor.html"
+                        controller: 'takeActionController'
+                    'header@':
+                        template: 'Data to the Editor'
+                    'action_area@take_action.data_to_the_editor':
+                        templateUrl: 'take_action/action_button.html'
+                        controller: ($scope, $stateParams) ->
+                            # $scope.action_text = ''
+                            $scope.who = 'media'
+            )
             .state('take_action.share',
                 url: '/share'
                 views:
