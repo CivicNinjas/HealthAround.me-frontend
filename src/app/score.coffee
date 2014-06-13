@@ -52,45 +52,50 @@ class CardGroup extends Controller
     constructor: ($log, $scope, $state, score_data, $stateParams) ->
         # unaddultered list of elements
         $scope.elements = score_data.elements
+        $scope.level_elements = []
 
+        target_level = 0
         # find our data!
         if $stateParams.slugs and (slugs = $stateParams.slugs?.split('/')).length > 0
             found_element = null
 
             level = 0
-            diver = (elements, level) ->
+            walker = (elements, level) ->
                 for element in elements
                     if element.slug is slugs[level]
                         # find if we're at the last level and select element
                         if level + 1 == slugs.length
-                            found_element = element
-                            return
+                            return [level, element]
                         if element.elements
                             level++
-                            diver(element.elements, level)
-                            return
-                return
+                            return walker(element.elements, level)
+                return [1, false]
 
-            diver(score_data.elements, level)
+            [target_level, found_element] = walker(score_data.elements, level)
 
-            $scope.elements = [found_element]
+            if found_element
+                $scope.top_element = found_element
+                $scope.elements = found_element.elements
 
-        # Watch for element changes
+
+
+        $scope.flattened_scores = []
         $scope.$watch 'elements', (all_elements) ->
             $log.log('elements_changed', all_elements)
+            # reset flattened_scores
             $scope.flattened_scores = []
             for top_element in all_elements
                 if top_element.elements
                     for inner_element in top_element.elements
-                        if not inner_element.parent
-                            inner_element.parent = top_element
                         inner_element.active = false
                         $scope.flattened_scores.push inner_element
-
-        $scope.slide_index = 0
+                else
+                    top_element.active = false
+                    $scope.flattened_scores.push top_element
 
         # when we drag the carousel of bars and let go we update the index
         # sets the new active element
+        $scope.slide_index = 0
         $scope.$watch 'slide_index', (index) ->
             $log.log('slide_index', index)
             return if not angular.isNumber(index)
@@ -150,12 +155,31 @@ class Cards extends Controller
 
 
 class Score extends Service
-    constructor: ($http, API_CONFIG) ->
+    constructor: ($http, API_CONFIG, $cacheFactory) ->
+        cache = $cacheFactory('score_data_loookup')
         @byLatLng = (coords) ->
-            return $http.jsonp("#{API_CONFIG.endpoint}/score/#{coords.lat},#{coords.lng}/?format=jsonp&callback=JSON_CALLBACK").then (resp) ->
+            coord_key = (coord_axis) ->
+                # 100meter - 43meter resolution for cache,
+                # if you move only slightly you'll recieve the same data.
+                parseFloat(coord_axis).toFixed(3).toString()
+            key = coord_key(coords.lat)+coord_key(coords.lng)
+            data = cache.get(key)
+            return data if data
+            return $http.jsonp("#{API_CONFIG.endpoint}/score/#{coords.lat},#{coords.lng}/?format=jsonp&callback=JSON_CALLBACK", cache: true).then (resp) ->
+                walker = (element) ->
+                    return if not element.elements
+                    for child_element in element.elements
+                        # attach parent object here so we can access it when we narrow down our di
+                        child_element.parent = element if element.slug
+                        child_element.active = false
+                        walker(child_element)
+                    return
+                walker(resp.data)
+                cache.put(key, resp.data);
                 return resp.data
+
         @detail = (params) ->
-            return $http.jsonp("#{API_CONFIG.endpoint}/detail/#{params.boundary_slug}/#{params.metric_slug}/?format=jsonp&callback=JSON_CALLBACK").then (resp) ->
+            return $http.jsonp("#{API_CONFIG.endpoint}/detail/#{params.boundary_slug}/#{params.metric_slug}/?format=jsonp&callback=JSON_CALLBACK", cache: true).then (resp) ->
                 return resp.data
 
 
